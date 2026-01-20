@@ -20,10 +20,11 @@ A place to write your findings and plans
 change speed to 3 instead of 1
 
 2.Change the backdrop color
-
+Changed it to pink
 
 3.Change the starting position of the player and dot, making new static constexpr for starting X and Y of each
-
+changed player to (-60,-50)
+changed treasure to (25,0)
 
 4.Make it so when the player hits start, the game restarts (the player and treasure are sent back to their initial positions and the score is reset to zero)
 
