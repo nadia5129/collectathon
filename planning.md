@@ -5,6 +5,7 @@ A place to write your findings and plans
 
 - "static constexpr bn::fixed SPEED = 1;" is a constant for the speed. you can change the speed here.
 
+- "bn::core::init();" Initializing the Butano Engine 
 
 
 ## Planning required changes
