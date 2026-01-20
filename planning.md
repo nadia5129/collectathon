@@ -7,7 +7,6 @@ A place to write your findings and plans
 
 - "bn::core::init();" Initializing the Butano Engine 
 
-<<<<<<< HEAD
 - I understand the part with the note about the width and height of the player and treasure bounding boxes. 
 
 - The bounds of the screen is a little confusing but i get the idea i just wouldnt feel confident explaining it.
