@@ -7,6 +7,8 @@ A place to write your findings and plans
 
 - "bn::core::init();" Initializing the Butano Engine 
 
+- the while loop is stating if the left button is held the speed of the game decreases and if the right button is held the speed increased. 
+
 
 ## Planning required changes
 
