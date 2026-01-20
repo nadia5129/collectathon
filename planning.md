@@ -23,6 +23,7 @@ change speed to 3 instead of 1
 Changed it to pink
 
 3.Change the starting position of the player and dot, making new static constexpr for starting X and Y of each
+
 changed player to (-60,-50)
 changed treasure to (25,0)
 
