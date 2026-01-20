@@ -27,6 +27,7 @@ changed player to (-60,-50)
 changed treasure to (25,0)
 
 4.Make it so when the player hits start, the game restarts (the player and treasure are sent back to their initial positions and the score is reset to zero)
+created another if statement in the while true loop and when start is pressed. score gets set to 0 and player and treasure gets set to original positions.
 
 
 5.Make it so that the player loops around the screen (if they go off the left of the screen, they show up on the right, if they go off the bottom of the screen they show up at the top, etc.)
