@@ -7,7 +7,6 @@ A place to write your findings and plans
 
 - "bn::core::init();" Initializing the Butano Engine 
 
-<<<<<<< HEAD
 - I understand the part with the note about the width and height of the player and treasure bounding boxes. 
 
 - The bounds of the screen is a little confusing but i get the idea i just wouldnt feel confident explaining it.
@@ -17,6 +16,22 @@ A place to write your findings and plans
 - What I dont understand: Text generator 
 
 ## Planning required changes
+1.Change the speed of the player
+change speed to 3 instead of 1
+
+2.Change the backdrop color
+
+
+3.Change the starting position of the player and dot, making new static constexpr for starting X and Y of each
+
+
+4.Make it so when the player hits start, the game restarts (the player and treasure are sent back to their initial positions and the score is reset to zero)
+
+
+5.Make it so that the player loops around the screen (if they go off the left of the screen, they show up on the right, if they go off the bottom of the screen they show up at the top, etc.)
+
+
+6.Make a speed boost. When the player presses 'A', their speed is increased for a short amount of time. They can only use the speed boost 3 times. They get all speed boosts back when the game is restarted by pressing start.
 
 ## Brainstorming game ideas
 
