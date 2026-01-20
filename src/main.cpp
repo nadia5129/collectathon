@@ -71,6 +71,27 @@ int main()
         {
             player.set_y(player.y() + SPEED);
         }
+
+       //
+        if(player.x() < MIN_X)
+        {
+            player.set_x(MAX_X);
+        }
+        else if(player.x() > MAX_X)
+        {
+            player.set_x(MIN_X);
+        }
+        if(player.y() < MIN_Y)
+        {
+            player.set_y(MAX_Y);
+        }
+        else if(player.y() > MAX_Y)
+        {
+            player.set_y(MIN_Y);
+        }
+       
+
+        // Reset game if start is pressed
         if (bn::keypad::start_pressed())
         {            
             score = 0;
