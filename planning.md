@@ -9,6 +9,7 @@ A place to write your findings and plans
 
 - the while loop is stating if the left button is held the speed of the game decreases and if the right button is held the speed increased. 
 
+- What I dont understand: Text generator 
 
 ## Planning required changes
 
