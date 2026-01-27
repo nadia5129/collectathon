@@ -43,6 +43,7 @@ Created two variables for speed boost and timer. Then created a while true loop 
 ## Brainstorming game ideas
 1. Start off by brainstorming ideas of how to make this game more fun. A few ideas:
  - Change sprite - create new graphics.
+ - Add background sprites? - like trees or clouds?.
 
 2. How can you visibly show how many speed boosts the player has remaining?
 3. Can you change the way movement works to make it more interesting?
