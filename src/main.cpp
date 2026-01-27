@@ -13,6 +13,9 @@
 #include "bn_sprite_items_dot.h"
 #include "bn_sprite_items_square.h"
 #include "common_fixed_8x16_font.h"
+#include <bn_music.h>
+#include <bn_music_items.h>
+
 
 // Pixels / Frame player moves at
 static constexpr bn::fixed SPEED = 3;
@@ -37,6 +40,9 @@ static constexpr int SCORE_Y = -70;
 int main()
 {
     bn::core::init();
+
+    //Start background music
+    bn::music_items::background_music.play();
 
     // background color
     bn::backdrop::set_color(bn::color(31, 20, 25));
