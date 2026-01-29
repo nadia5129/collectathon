@@ -192,10 +192,27 @@ Make sure to be making commits and testing your game along the way!
     1. Click Start, and play your game for a short while (probably no more than 10 seconds)
     1. Click Stop.
     1. Verify your GIF has been saved in your repo and add/commit/push the GIF.
-1. Update README.md. I encourage you to look up Markdown syntax online!
+1. Update README.md. I encourage you to look up Markdown syntax online or look at this README in edit mode for an example.
     - Give a new name to your game, and a brief description of it.
     - Add a link to the deployed GitHub page from your README.
     - Embed your GIF
     - Keep the README short, but informative and exciting. You want someone to see it and quickly have an idea of what your game is and be able to find the link to play it.
-1. BOTH PARTNERS MUST SUBMIT TO CANVAS. Submit both your GitHub repo URL and the deployed game URL.
-1. Share with your friends and/or family!
+    - Add/commit/push!
+
+### Make a Pull Request (PR)
+1. ONLY ONE PARTNER NEEDS TO DO THIS STEP, BUT YOU SHOULD DO IT TOGETHER.
+1. Open your GitHub repo. After refreshing the page for YOUR fork you should see a message stating that your branch is `x` commits ahead of `auberonedu/collectathon:main`. To the right of this there is a *Contribute* button. Click the *Contribute* button, and then click on the green *Open pull request* button.
+  ![Screenshot showing how to begin opening a pull request](begin-pr-screenshot.png)
+1. This will take you to a new page. At the bottom of the page you should see a visual representation of the differences (diff) your new change will introduce. Add a title and description to your pull request (PR).
+1. Click *Create pull request* to open the pull request.
+1. Congrats! You have created your first pull request!
+1. In Canvas, please copy the link to the pull request you created to submit your assignment. For this practice exercise I will not be merging your request. But in a real open-source repository, a *maintainer* would give you feedback on your changes, and if they were happy with them the would *merge* your PR (accept your changes into the original version).
+
+### Submitting
+BOTH PARTNERS MUST SUBMIT TO CANVAS.
+
+Submit:
+    - Your GitHub repo URL
+    - A link to your deployed game on GitHub pages
+    - A link to your PR
+    - A short description of the improvements you made
