@@ -60,6 +60,14 @@ int main()
     bn::sprite_text_generator text_generator(common::fixed_8x16_sprite_font);
 
     int score = 0;
+    int current_color_index = 0;
+    bn::color level_colors[5] = {
+    bn::color(31, 20, 25),  // Pink (starting color)
+    bn::color(15, 25, 31),  // Blue
+    bn::color(20, 31, 15),  // Green
+    bn::color(31, 25, 10),  // Yellow
+    bn::color(25, 15, 31)   // Purple
+};
 
     int boosts_left = 3;
     int boost_timer = 0;
@@ -121,6 +129,28 @@ int main()
         else if(player.y() > MAX_Y)
         {
             player.set_y(MIN_Y);
+        }
+
+        // Move fox horizontally
+        fox.set_x(fox.x() + fox_vx);
+        if(fox.x() > MAX_X)
+        {
+            fox.set_x(MIN_X);
+        }
+        else if(fox.x() < MIN_X)
+        {
+            fox.set_x(MAX_X);
+        }
+
+        // Move car vertically
+        car.set_y(car.y() + car_yv);
+        if(car.y() > MAX_Y)
+        {
+            car.set_y(MIN_Y);
+        }
+        else if(car.y() < MIN_Y)
+        {
+            car.set_y(MAX_Y);
         }
 
         // Reset game if start is pressed
