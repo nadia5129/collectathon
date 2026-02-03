@@ -59,6 +59,9 @@ int main()
     bn::vector<bn::sprite_ptr, MAX_SCORE_CHARS> score_sprites = {};
     bn::sprite_text_generator text_generator(common::fixed_8x16_sprite_font);
 
+    // Instructions text
+    bn::vector<bn::sprite_ptr, 64> instruction_sprites = {};
+
     int score = 0;
 
     // Color change variables
@@ -73,25 +76,110 @@ int main()
 
     int boosts_left = 3;
     int boost_timer = 0;
+    int fox_hits = 0;  // Track how many times fox has caught the player
+    bool game_started = false;  // Track if game has started
 
     bn::sprite_ptr player = bn::sprite_items::square.create_sprite(-60, -50);
     bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(25, 0);
     bn::sprite_ptr fox = bn::sprite_items::fox.create_sprite(0, 40);
     bn::sprite_ptr car = bn::sprite_items::car.create_sprite(0, -40);
 
-    // Fox chase speed (slower than player so it's beatable)
-    bn::fixed fox_speed = 1.5;
+    // Fox chase speed (slower than before)
+    bn::fixed fox_speed = .25;
     
-    // Car random movement
-    bn::fixed car_vx = 1;
-    bn::fixed car_vy = 1;
+    // Car random movement (slower speed)
+    bn::fixed car_vx = 0.5;
+    bn::fixed car_vy = 0.5;
     int car_direction_timer = 0;
 
-    // Hide fox initially (it appears at level 15)
+    // Hide everything initially
+    player.set_visible(false);
+    treasure.set_visible(false);
     fox.set_visible(false);
+    car.set_visible(false);
+
+    // Animation for instructions screen
+    int title_blink_timer = 0;
+    bool title_visible = true;
 
     while (true)
     {
+        // Show instructions screen
+        if (!game_started)
+        {
+            // Nice gradient background for instructions
+            bn::backdrop::set_color(bn::color(10, 15, 31));
+            
+            instruction_sprites.clear();
+            
+            // Title (centered, blinking)
+            title_blink_timer++;
+            if (title_blink_timer > 30)
+            {
+                title_visible = !title_visible;
+                title_blink_timer = 0;
+            }
+            
+            if (title_visible)
+            {
+                text_generator.generate(-90, -65, "DUCK TREASURE HUNT", instruction_sprites);
+            }
+            
+            // Decorative line
+            text_generator.generate(-100, -50, "====================", instruction_sprites);
+            
+            // Controls section
+            text_generator.generate(-100, -35, "CONTROLS:", instruction_sprites);
+            text_generator.generate(-95, -20, "D-Pad - Move Duck", instruction_sprites);
+            text_generator.generate(-95, -5, "A Button - Speed Boost", instruction_sprites);
+            text_generator.generate(-95, 10, "(You get 3 boosts!)", instruction_sprites);
+            
+            // Rules section
+            text_generator.generate(-100, 30, "RULES:", instruction_sprites);
+            text_generator.generate(-95, 45, "Collect treasures!", instruction_sprites);
+            text_generator.generate(-95, 60, "Avoid the car (-1pt)", instruction_sprites);
+            
+            // Warning section
+            text_generator.generate(-95, 75, "Fox appears at Lv 15!", instruction_sprites);
+            
+            // Start prompt (blinking)
+            if (title_visible)
+            {
+                text_generator.generate(-85, 95, ">>> PRESS START <<<", instruction_sprites);
+            }
+
+            // Show preview sprites on instruction screen
+            player.set_visible(true);
+            player.set_position(-110, 45);
+            
+            treasure.set_visible(true);
+            treasure.set_position(-110, 60);
+            
+            car.set_visible(true);
+            car.set_position(60, 60);
+            
+            fox.set_visible(true);
+            fox.set_position(60, 75);
+
+            if (bn::keypad::start_pressed())
+            {
+                game_started = true;
+                instruction_sprites.clear();
+                player.set_position(-60, -50);
+                treasure.set_position(25, 0);
+                fox.set_position(0, 40);
+                car.set_position(0, -40);
+                player.set_visible(true);
+                treasure.set_visible(true);
+                car.set_visible(true);
+                fox.set_visible(false);
+                bn::backdrop::set_color(level_colors[0]);
+            }
+
+            bn::core::update();
+            continue;
+        }
+
         if(bn::keypad::a_pressed() && boosts_left > 0 && boost_timer == 0)
         {
             boost_timer = 60;
@@ -190,14 +278,14 @@ int main()
         if(car_direction_timer > 60 + rng.get_int(60))
         {
             car_direction_timer = 0;
-            // Random velocities between -2 and 2
-            car_vx = rng.get_int(-2, 2);
-            car_vy = rng.get_int(-2, 2);
+            // Random velocities between -1 and 1 (slower than before)
+            car_vx = rng.get_int(-1, 1);
+            car_vy = rng.get_int(-1, 1);
             
             // Make sure car is always moving
             if(car_vx == 0 && car_vy == 0)
             {
-                car_vx = 1;
+                car_vx = 0.5;
             }
         }
 
@@ -207,14 +295,15 @@ int main()
             score = 0;
             boosts_left = 3;
             boost_timer = 0;
+            fox_hits = 0;  // Reset fox hits
             current_color_index = 0;
             player.set_position(-60, -50);
             treasure.set_position(25, 0);
             fox.set_position(0, 40);
             fox.set_visible(false);
             car.set_position(0, -40);
-            car_vx = 1;
-            car_vy = 1;
+            car_vx = 0.5;
+            car_vy = 0.5;
             car_direction_timer = 0;
             player.set_scale(1);  // Reset size
             bn::backdrop::set_color(level_colors[0]);  // Reset color
@@ -250,9 +339,33 @@ int main()
             
             if (player_rect.intersects(fox_rect))
             {
-                score = bn::max(0, score - 2);  // Lose 2 points
-                player.set_position(-60, -50);  // Reset player position
-                fox.set_position(0, 40);  // Reset fox position
+                fox_hits++;
+                
+                if (fox_hits >= 3)
+                {
+                    // Game over - reset everything
+                    score = 0;
+                    boosts_left = 3;
+                    boost_timer = 0;
+                    fox_hits = 0;
+                    current_color_index = 0;
+                    player.set_position(-60, -50);
+                    treasure.set_position(25, 0);
+                    fox.set_position(0, 40);
+                    fox.set_visible(false);
+                    car.set_position(0, -40);
+                    car_vx = 0.5;
+                    car_vy = 0.5;
+                    car_direction_timer = 0;
+                    player.set_scale(1);
+                    bn::backdrop::set_color(level_colors[0]);
+                }
+                else
+                {
+                    // Just reset player position
+                    player.set_position(-60, -50);
+                    fox.set_position(0, 40);
+                }
             }
         }
 
@@ -264,7 +377,7 @@ int main()
         
         if (player_rect.intersects(car_rect))
         {
-            score = bn::max(0, score - 2);  // Lose 2 points
+            score = bn::max(0, score - 1);  // Lose only 1 point
             player.set_position(-60, -50);  // Reset player position
         }
 
